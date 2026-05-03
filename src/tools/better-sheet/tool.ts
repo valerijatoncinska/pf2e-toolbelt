@@ -424,10 +424,7 @@ class BetterSheetTool extends ModuleTool<ToolSettings> {
             if (disabled) continue;
 
             btn.addEventListener("click", async () => {
-                const formulas = R.sortBy(
-                    ability.preparedFormulaData,
-                    ({ uuid }) => fromUuidSync(uuid, { strict: false })?.name ?? "",
-                );
+                const formulas = R.sortBy(ability.preparedFormulaData, ({ uuid }) => fromUuidSync(uuid)?.name ?? "");
                 ability.updateFormulas(formulas);
             });
         }
@@ -444,10 +441,7 @@ class BetterSheetTool extends ModuleTool<ToolSettings> {
         if (disabled) return;
 
         btn.addEventListener("click", async () => {
-            const formulas = R.sortBy(
-                actor.system.crafting.formulas,
-                ({ uuid }) => fromUuidSync(uuid, { strict: false })?.name ?? "",
-            );
+            const formulas = R.sortBy(actor.system.crafting.formulas, ({ uuid }) => fromUuidSync(uuid)?.name ?? "");
             await actor.update({ "system.crafting.formulas": formulas });
         });
     }

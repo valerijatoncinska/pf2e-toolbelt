@@ -29,7 +29,7 @@ function createActionableRuleElement() {
             }
 
             const uuid = this.resolveInjectedProperties(this.uuid);
-            const type = fromUuidSync<ItemPF2e>(uuid, { strict: false })?.type;
+            const type = fromUuidSync<ItemPF2e>(uuid)?.type;
             if (!R.isIncludedIn(type, ["action", "feat"])) {
                 this.failValidation("uuid must be a valid encounter action source uuid");
             }
