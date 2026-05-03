@@ -48,7 +48,7 @@ const WALL_INTERSECTIONS_SETTING = [
     "corner-center",
 ] as const;
 
-const COVER_UUID = SYSTEM.itemUuid(
+const COVER_UUID = SYSTEM.uuid(
     "Compendium.pf2e.other-effects.Item.I9lfZUiCwMiGogVi",
     "Compendium.sf2e.other-effects.Item.I9lfZUiCwMiGogVi",
 );

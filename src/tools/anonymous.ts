@@ -95,13 +95,13 @@ class AnonymousTool extends ModuleTool<ToolSettings> {
 
         for (const { icon, test, type } of CONTEXT_OPTIONS) {
             options.push({
-                label: this.localize.path(`${type}.context`),
+                name: this.localize.path(`${type}.context`),
                 icon,
-                visible: (el: HTMLElement) => {
+                condition: (el: HTMLElement) => {
                     const msg = getMessage(el);
                     return this.settings[type] && test(msg) && !this.getFlag(msg, "revealed");
                 },
-                onClick: (_event, el) => {
+                callback: (el) => {
                     const message = getMessage(el);
                     if (message) {
                         this.setFlag(message, "revealed", true);

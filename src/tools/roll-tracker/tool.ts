@@ -156,16 +156,6 @@ class RollTrackerTool extends ModuleTool<RollTrackerSettings> {
         this.settings.userRolls = rolls;
     }
 
-    addRollsWithValues(values: number[], roll: Omit<UserRoll, "value">) {
-        const rolls = this.settings.userRolls.slice();
-
-        for (const value of values) {
-            rolls.push({ ...roll, value });
-        }
-
-        this.settings.userRolls = rolls;
-    }
-
     getUserRolls(userid: string): UserRoll[] {
         return R.pipe(
             getUserSetting<UserRollSource[]>(this.getSettingKey("userRolls"), userid)?.value ?? [],
@@ -299,9 +289,9 @@ class RollTrackerTool extends ModuleTool<RollTrackerSettings> {
     #onCreateChatMessage(message: ChatMessagePF2e, _data: object, userId: string) {
         if (userId !== game.userId || !this.canRecord) return;
 
-        const die = message.rolls.at(0)?.dice[0];
-        const values = die?.values.filter(R.isNumber);
-        if (!die || die.faces !== 20 || !values?.length) return;
+        const die = message.rolls[0]?.dice[0];
+        const value = die?.total;
+        if (!die || die.faces !== 20 || !R.isNumber(value)) return;
 
         const user = game.user;
         const context = message.flags[SYSTEM.id].context;
@@ -309,7 +299,8 @@ class RollTrackerTool extends ModuleTool<RollTrackerSettings> {
         if (context && isCheckContextFlag(context)) {
             if (!user.isGM && context.rollMode === "selfroll") return;
 
-            this.addRollsWithValues(values, {
+            this.addRoll({
+                value,
                 time: Date.now(),
                 type: context.type,
                 isPrivate: !tupleHasValue(["publicroll", "roll"], context.rollMode),
@@ -324,7 +315,8 @@ class RollTrackerTool extends ModuleTool<RollTrackerSettings> {
         } else if (message.rolls.length === 1 && message.rolls[0].dice.length === 1) {
             if (!user.isGM && !message.blind && message.whisper.length === 1 && message.whisper[0] === user.id) return;
 
-            this.addRollsWithValues(values, {
+            this.addRoll({
+                value,
                 time: Date.now(),
                 type: "roll",
                 isPrivate: message.blind || message.whisper.length > 0,
