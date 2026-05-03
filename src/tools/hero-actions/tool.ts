@@ -5,6 +5,7 @@ import {
     CharacterSheetData,
     CharacterSheetPF2e,
     ChatMessageSourcePF2e,
+    ClientDocument,
     createEmitable,
     createHTMLElement,
     createToggleWrapper,
@@ -316,19 +317,21 @@ class HeroActionsTool extends ModuleTool<HeroActionsSettings> {
         const isUnique = table.replacement === false;
         const actions = this.getHeroActions(actor);
 
-        const actionsList = table.results.map((result) => {
-            const uuid = documentUuidFromTableResult(result);
-            if (!uuid || actions.find((x) => x.uuid === uuid)) return;
+        const actionsList = await Promise.all(
+            table.results.map(async (result) => {
+                const uuid = documentUuidFromTableResult(result);
+                if (!uuid || actions.find((x) => x.uuid === uuid)) return;
 
-            const name = labelfromTableResult(result, uuid) ?? "";
+                const name = (await labelfromTableResult(result, uuid)) ?? "";
 
-            return {
-                name,
-                drawn: isUnique && result.drawn,
-                uuid,
-                value: JSON.stringify({ uuid, name, key: result.id }),
-            };
-        });
+                return {
+                    name,
+                    drawn: isUnique && result.drawn,
+                    uuid,
+                    value: JSON.stringify({ uuid, name, key: result.id }),
+                };
+            }),
+        );
 
         const result = await waitDialog<{
             drawn: boolean;
@@ -703,7 +706,9 @@ class HeroActionsTool extends ModuleTool<HeroActionsSettings> {
                 return;
             }
 
-            const name = labelfromTableResult(draw, uuid) ?? "";
+            const name = (await labelfromTableResult(draw, uuid)) ?? "";
+            // const action = new HeroActionModel({ uuid, name });
+
             const action = zHeroAction.safeParse({ name, uuid }).data;
             if (!action) continue;
 
@@ -864,13 +869,13 @@ class HeroActionsTool extends ModuleTool<HeroActionsSettings> {
     }
 }
 
-function labelfromTableResult(result: TableResult<RollTable>, uuid: string): string | null | undefined {
+async function labelfromTableResult(result: TableResult<RollTable>, uuid: string): Promise<string | null | undefined> {
     if (result.type === CONST.TABLE_RESULT_TYPES.DOCUMENT && result.documentUuid) {
         return result.description;
     }
 
     const label = /@UUID\[[\w\.]+\]{([\w -]+)}/.exec(result.description)?.[1];
-    return label ?? (uuid && fromUuidSync(uuid)?.name);
+    return label ?? (uuid && (await fromUuid<ClientDocument & { name: string }>(uuid))?.name);
 }
 
 function documentUuidFromTableResult(result: TableResult<RollTable>): DocumentUUID | null | undefined {
