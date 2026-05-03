@@ -93,16 +93,16 @@ class TargetHelper {
 
     get npcListToRoll(): TokenDocumentPF2e[] {
         const statistic = this.saveVariant?.statistic;
-        if (!statistic || !this.#isGM) return [];
+        if (!statistic) return [];
 
         return [...this.targets, ...this.splashTargets].filter((target) => {
             const actor = target.actor;
-            return actor?.getStatistic(statistic) && !actor.hasPlayerOwner && !this.saveVariant.saves[target.id];
+            return actor?.getStatistic(statistic) && !this.saveVariant.saves[target.id];
         });
     }
 
     get canRollNPCSaves(): boolean {
-        return this.npcListToRoll.length > 0;
+        return true;
     }
 
     async getItem(message: ChatMessagePF2e): Promise<ItemPF2e<ActorPF2e> | null> {
