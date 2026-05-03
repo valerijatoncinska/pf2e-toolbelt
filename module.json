@@ -1,6 +1,6 @@
 {
     "id": "pf2e-toolbelt",
-    "title": "PF2e Toolbelt",
+    "title": "PF2e Toolbelt with changes",
     "description": "Collection of features for the PF2e system.",
     "authors": [
         {
@@ -17,13 +17,7 @@
         "maximum": "13"
     },
     "socket": true,
-    "version": "3.41.1",
-    "url": "https://github.com/reonZ/pf2e-toolbelt",
-    "readme": "https://github.com/reonZ/pf2e-toolbelt/blob/master/README.md",
-    "manifest": "https://raw.githubusercontent.com/reonZ/pf2e-toolbelt/master/module.json",
-    "download": "https://github.com/reonZ/pf2e-toolbelt/releases/download/3.41.1/module.zip",
-    "changelog": "https://github.com/reonZ/pf2e-toolbelt/blob/master/CHANGELOG.md",
-    "bugs": "https://github.com/reonZ/pf2e-toolbelt/issues",
+    "version": "3.41.333",
     "styles": [
         "styles/pf2e-toolbelt.css"
     ],
