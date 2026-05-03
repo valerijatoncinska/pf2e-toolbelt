@@ -249,9 +249,7 @@ class BetterInventoryTool extends ModuleTool<ToolSettings> {
         const identicalItems = R.pipe(
             actor.inventory.filter((item): item is Mergeable => {
                 return (
-                    item.isOfType("ammo", "equipment", "consumable", "treasure") &&
-                    item.isIdentified &&
-                    !!getItemSourceId(item)
+                    item.isOfType("equipment", "consumable", "treasure") && item.isIdentified && !!getItemSourceId(item)
                 );
             }),
             R.groupBy((item) => getItemSourceId(item)),

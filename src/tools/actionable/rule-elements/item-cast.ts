@@ -31,7 +31,7 @@ function createItemCastRuleElement() {
     class ItemCastRuleElement extends RuleElementCls<ItemCastSchema> {
         // static autogenForms = true;
 
-        constructor(data: RuleElementSource, options: RuleElementOptions) {
+        constructor(data: ItemCastSource, options: RuleElementOptions) {
             data.priority ??= 99;
             data.requiresEquipped = false;
             data.requiresInvestment = false;

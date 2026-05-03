@@ -217,6 +217,13 @@
           "hint": "Dodaje przyciski sortowania do różnych list w karcie aktora."
         }
       },
+      "betterTemplate": {
+        "title": "Ulepszone Szablony",
+        "target": {
+          "name": "Auto celowanie",
+          "hint": "Po umieszczeniu szablonu na planszy pojawi się nowe okno dialogowe, pozwalające na namierzenie wszystkich znajdujących się w nim tokenów."
+        }
+      },
       "betterTrade": {
         "title": "Ulepszona Wymiana",
         "invertTrade": {
@@ -349,10 +356,6 @@
       },
       "targetHelper": {
         "title": "Pomocnik Celowania",
-        "checks": {
-          "name": "Wiadomości dotyczące testów",
-          "hint": "Ulepsza proste wiadomości zapisu liniowego do czegoś, co może być używane przez funkcję. Dodaje również więcej szczegółów."
-        },
         "enabled": {
           "name": "Włączone",
           "hint": "Włącz funkcję \"Pomocnik celowania\" na twoim świecie."
@@ -365,9 +368,9 @@
           "name": "Dodawanie celów do wiadomości",
           "hint": "Doda dodatkowe cele do wiadomości na czacie, w których można zadawać obrażenia i rzucać rzuty obronne."
         },
-        "template": {
-          "name": "Pomocnik Szablonów",
-          "hint": "Po umieszczeniu szablonu na planszy pojawi się nowe okno dialogowe, pozwalające na namierzenie wszystkich znajdujących się w nim tokenów."
+        "checks": {
+          "name": "Wiadomości dotyczące testów",
+          "hint": "Ulepsza proste wiadomości zapisu liniowego do czegoś, co może być używane przez funkcję. Dodaje również więcej szczegółów."
         }
       },
       "underground": {
@@ -417,21 +420,16 @@
         "cancel": "Akcja <strong>{name}</strong> została anulowana przez makro."
       },
       "cast": {
-        "equipped": "Nie wyposażony",
-        "label": "Przedmiot rzucenia zaklęcia"
+        "equipped": "Nie wyposażony"
       },
       "generate-cast": {
         "add": "Dodaj regułę",
-        "attribute": "Atrybut",
         "dc": "ST",
         "empty": "W opisie przedmiotu nie znaleziono żadnych dodatkowych zaklęć.",
         "label": "Przedmiot rzucania zaklęcia",
         "max": "Maksymalne użycia",
-        "predicate": "Predykat",
         "rank": "Ranga",
-        "statistic": "Statystyka",
-        "title": "Wygeneruj reguły „Przedmiot rzucania zaklęcia” na podstawie opisu.",
-        "tradition": "Tradycja"
+        "title": "Wygeneruj reguły „Przedmiot rzucania zaklęcia” na podstawie opisu."
       },
       "item": {
         "label": "Makro",
@@ -630,6 +628,18 @@
           "tooltip": "Sortuj zawartość",
           "container": "Sortuj zawartość pojemników"
         }
+      }
+    },
+    "betterTemplate": {
+      "target": {
+        "all": "Oba",
+        "allies": "Sojusznicy",
+        "dismiss": "Usuń szablon",
+        "enemies": "Wrogowie",
+        "neutral": "Uwzględnij neutralne",
+        "self": "Uwzględnij siebie",
+        "title": "Pomocnik Szablonów",
+        "yes": "Cel"
       }
     },
     "characterImporter": {
@@ -1130,16 +1140,6 @@
       "setTargets": {
         "splashTargets": "Wyznacz cele Rozprysku",
         "targets": "Wyznacz cele"
-      },
-      "template": {
-        "all": "Oba",
-        "allies": "Sojusznicy",
-        "dismiss": "Usuń szablon",
-        "enemies": "Wrogowie",
-        "neutral": "Uwzględnij neutralne",
-        "self": "Uwzględnij siebie",
-        "title": "Pomocnik Szablonów",
-        "yes": "Cel"
       },
       "tooltip": {
         "adjustment": "Dostosowanie: {value}",

@@ -28,7 +28,7 @@ class ShareDataConfig extends ModuleToolApplication<ShareDataTool> {
         const data = slaves ? null : tool.getShareData(actor);
 
         if (!slaves && !data) {
-            throw MODULE.Error("an error occured when trying to instantiate 'ShareDataConfig'");
+            throw MODULE.Error("an error occured when trying to instantiate 'ShareDataModel'");
         }
 
         this.#actor = actor;

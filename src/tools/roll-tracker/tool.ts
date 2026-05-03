@@ -125,19 +125,6 @@ class RollTrackerTool extends ModuleTool<RollTrackerSettings> {
         return zTimedEvents.safeParse(this.settings.sessions).data ?? {};
     }
 
-    get canRecord(): boolean {
-        if (MODULE.isDebug) return true;
-
-        let nbUsers = 0;
-
-        for (const user of game.users) {
-            if (user.active) nbUsers++;
-            if (nbUsers > 1) return true;
-        }
-
-        return false;
-    }
-
     init(isGM: boolean): void {
         if (!this.settings.enabled) return;
 
@@ -154,6 +141,10 @@ class RollTrackerTool extends ModuleTool<RollTrackerSettings> {
         const rolls = this.settings.userRolls.slice();
         rolls.push(roll);
         this.settings.userRolls = rolls;
+    }
+
+    canRecord(): boolean {
+        return MODULE.isDebug || game.users.filter((user) => user.active).length > 1;
     }
 
     getUserRolls(userid: string): UserRoll[] {
@@ -271,7 +262,7 @@ class RollTrackerTool extends ModuleTool<RollTrackerSettings> {
 
         tokenTools.rollTracker = {
             button: true,
-            icon: "fa-sharp fa-solid fa-dice-d20",
+            icon: "fa-sharp-duotone fa-solid fa-dice-d20",
             name: "rollTracker",
             order: Object.keys(tokenTools).length,
             title: settingPath("rollTracker.title"),
@@ -287,7 +278,7 @@ class RollTrackerTool extends ModuleTool<RollTrackerSettings> {
     }
 
     #onCreateChatMessage(message: ChatMessagePF2e, _data: object, userId: string) {
-        if (userId !== game.userId || !this.canRecord) return;
+        if (userId !== game.userId || !this.canRecord()) return;
 
         const die = message.rolls[0]?.dice[0];
         const value = die?.total;
@@ -329,7 +320,7 @@ class RollTrackerTool extends ModuleTool<RollTrackerSettings> {
     }
 
     #onRerollSave({ newRoll, data, target }: toolbelt.targetHelper.RerollSaveHook) {
-        if (!this.canRecord) return;
+        if (!this.canRecord()) return;
 
         const value = newRoll.dice[0]?.total;
         if (!R.isNumber(value)) return;

@@ -30,13 +30,14 @@ import {
     COVER_VALUES,
     CoverHighlightRenderer,
     CoverLevel,
+    drawDebugLine,
     getRectEdges,
+    lineIntersect,
     RectEdge,
     SIZES,
     spreadToToken,
     tokenToSpread,
 } from ".";
-import { drawDebugLine, lineIntersect } from "tools";
 
 const CREATURE_SETTINGS = ["disabled", "cross", "zero", "ten", "twenty"] as const;
 
@@ -155,7 +156,7 @@ class AutoCoverTool extends ModuleTool<ToolSettings> {
         const debug = MODULE.isDebug;
 
         if (debug) {
-            canvas.controls.debug.clear();
+            this.clearDebug();
         }
 
         if (this.intersectsWithWall(origin, target, debug)) {
@@ -279,6 +280,10 @@ class AutoCoverTool extends ModuleTool<ToolSettings> {
         }
 
         return cover;
+    }
+
+    clearDebug() {
+        canvas.controls.debug.clear();
     }
 
     #tokenRefreshVisibility(token: TokenPF2e, wrapped: libWrapper.RegisterCallback) {
