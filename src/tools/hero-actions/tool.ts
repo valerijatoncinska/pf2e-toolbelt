@@ -870,7 +870,7 @@ class HeroActionsTool extends ModuleTool<HeroActionsSettings> {
 }
 
 async function labelfromTableResult(result: TableResult<RollTable>, uuid: string): Promise<string | null | undefined> {
-    if (result.type === CONST.TABLE_RESULT_TYPES.DOCUMENT && result.documentUuid) {
+    if (result.type !== CONST.TABLE_RESULT_TYPES.TEXT) {
         return result.description;
     }
 
@@ -880,15 +880,11 @@ async function labelfromTableResult(result: TableResult<RollTable>, uuid: string
 
 function documentUuidFromTableResult(result: TableResult<RollTable>): DocumentUUID | null | undefined {
     if (result.type === CONST.TABLE_RESULT_TYPES.TEXT) {
-        return documentUuidFromTableResultDescription(result);
+        return /@UUID\[([\w\.-]+)\]/.exec(result.description)?.[1] as DocumentUUID;
     }
     if (result.type === CONST.TABLE_RESULT_TYPES.DOCUMENT) {
-        return result.documentUuid ?? documentUuidFromTableResultDescription(result);
+        return result.documentUuid;
     }
-}
-
-function documentUuidFromTableResultDescription(result: TableResult<RollTable>): DocumentUUID | null | undefined {
-    return /@UUID\[([\w\.-]+)\]/.exec(result.description)?.[1] as DocumentUUID | null | undefined;
 }
 
 async function openDescriptionFromElement(el: HTMLElement) {
